@@ -1,0 +1,140 @@
+<mat-form-field id="accountFilter">
+    <mat-label>AdGroup/Campaign Name</mat-label>
+    <input matInput
+      [(ngModel)]="filter"
+      (keyup)="applyFilter($event.target.value)"
+      placeholder="Use spaces to separate search terms"
+      #tableFilterInput>
+</mat-form-field>
+
+<mat-form-field *ngFor="let filter of filterSelectObj" style="margin-left: 15px;">
+  <mat-label> Filter {{filter.name}} </mat-label>
+  <select matNativeControl name="{{filter.columnProp}}"
+      [(ngModel)]="filter.modelValue"
+      (change)="filterChange(filter,$event)">
+      <option value=""> All </option>
+      <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
+      </select>
+</mat-form-field>
+
+<div>
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Selection column for non-text assets -->
+    <ng-container
+      *ngIf="!isTextAsset"
+      matColumnDef="adgroup-sel">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox class="header-checkmark"
+          (change)="$event ? masterToggle(assetConn.ADGROUP) : null"
+          [checked]="adgroup_sel.hasValue() && isAllSelected(assetConn.ADGROUP)"
+          [indeterminate]="adgroup_sel.hasValue() && !isAllSelected(assetConn.ADGROUP)">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <i *ngIf="row.isEdited[assetConn.ADGROUP]" class="fas fa-pen"></i>
+        <mat-checkbox
+          [disabled] = "row.disabled[assetConn.ADGROUP]"
+          (click)="$event.stopPropagation()"
+          (change)="toggleSelection(row, assetConn.ADGROUP)"
+          [checked]="adgroup_sel.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Selection column for text assets -->
+    <ng-container
+      matColumnDef="headline-sel">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox class="header-checkmark"
+          (change)="$event ? masterToggle(assetConn.HEADLINE) : null"
+          [checked]="headline_sel.hasValue() && isAllSelected(assetConn.HEADLINE)"
+          [indeterminate]="headline_sel.hasValue() && !isAllSelected(assetConn.HEADLINE)">
+        </mat-checkbox>Headline
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <i *ngIf="row.isEdited[assetConn.HEADLINE]" class="fas fa-pen"></i>
+        <mat-checkbox
+          [disabled] = "row.disabled[assetConn.HEADLINE]"
+          (click)="$event.stopPropagation()"
+          (change)="toggleSelection(row, assetConn.HEADLINE)"
+          [checked]="headline_sel.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+    <!-- Headline Performance Column -->
+    <ng-container *ngIf="isTextAsset" matColumnDef="headline-performance">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Headline Performance </th>
+      <td mat-cell *matCellDef="let row"> {{row.headlinePerformance}} </td>
+    </ng-container>
+    <ng-container
+      matColumnDef="desc-sel">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox class="header-checkmark"
+          (change)="$event ? masterToggle(assetConn.DESC) : null"
+          [checked]="description_sel.hasValue() && isAllSelected(assetConn.DESC)"
+          [indeterminate]="description_sel.hasValue() && !isAllSelected(assetConn.DESC)">
+        </mat-checkbox>Desc.
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <i *ngIf="row.isEdited[assetConn.DESC]" class="fas fa-pen"></i>
+        <mat-checkbox
+          [disabled] = "row.disabled[assetConn.DESC]"
+          (click)="$event.stopPropagation()"
+          (change)="toggleSelection(row, assetConn.DESC)"
+          [checked]="description_sel.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+    <!-- Description Performance Column -->
+    <ng-container *ngIf="isTextAsset" matColumnDef="desc-performance">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description Performance </th>
+      <td mat-cell *matCellDef="let row"> {{row.descriptionPerformance}} </td>
+    </ng-container>
+      <!-- Type Column -->
+      <!-- <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let row"> {{row.type}}% </td>
+      </ng-container> -->
+
+      <!-- AdGroup Column -->
+      <ng-container matColumnDef="adgroup">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ad Group </th>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      </ng-container>
+      <!-- AdGroup Enabled Column -->
+      <ng-container matColumnDef="adgroup-enabled">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ad Group Status </th>
+        <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+      </ng-container>
+
+      <!-- Performance Column -->
+      <ng-container *ngIf="!isTextAsset" matColumnDef="performance">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Performance </th>
+        <td mat-cell *matCellDef="let row"> {{row.performance}} </td>
+      </ng-container>
+
+      <!-- Campaign Column -->
+      <ng-container matColumnDef="campaign">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Campaign </th>
+        <td mat-cell *matCellDef="let row"> {{row.campaign_name}} </td>
+      </ng-container>
+      <!-- Campaign Enabled Column -->
+      <ng-container matColumnDef="campaign-enabled">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Campaign Status </th>
+        <td mat-cell *matCellDef="let row"> {{row.campaign_status}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns$ | async"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="3">No data matching the filter "{{tableFilterInput.value}}"</td>
+      </tr>
+    </table>
+  <mat-paginator
+    [pageSizeOptions]="pageSizeOptions"
+    [showFirstLastButtons]=true>
+  </mat-paginator>
+</div>

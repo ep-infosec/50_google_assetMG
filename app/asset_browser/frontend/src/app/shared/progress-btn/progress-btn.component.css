@@ -1,0 +1,22 @@
+mat-progress-bar {
+  position: absolute;
+  top: 88%;
+  left: 0;
+}
+
+button {
+  min-width: 90px;
+  display: block;
+  margin: 0 auto;
+}
+
+.addedPadding{
+  padding: 12px;
+}
+.button-update-msg {
+  color: grey;
+  line-height: 1.2em;
+  transform: translateY(10px);
+  font-size: 75%;
+  text-align: center;
+}

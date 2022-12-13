@@ -1,0 +1,42 @@
+<div class="asset-card" [ngSwitch]="asset?.type">
+  <mat-card *ngSwitchCase="assetType.IMG"
+            [ngClass]="{'accent-border': selectedAssetId === asset.id }"
+            (click)="openDetails()">
+    <mat-card-subtitle><i class="far fa-image"></i> {{asset.name}} </mat-card-subtitle>
+    <mat-card-content>
+      <img mat-card-image [src]= 'asset.image_url' alt="">
+      <button mat-icon-button (click)="openPreview()">
+        <mat-icon>pageview</mat-icon>
+    </button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngSwitchCase="assetType.VIDEO"
+            [ngClass]="{'accent-border': selectedAssetId === asset.id }"
+            (click)="openDetails()">
+    <mat-card-subtitle><i class="fab fa-youtube"></i> {{asset.name}} </mat-card-subtitle>
+    <mat-card-content>
+      <img mat-card-image [src]= 'asset.image_url' alt="">
+      <button mat-icon-button (click)="openPreview()">
+        <mat-icon>pageview</mat-icon>
+      </button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngSwitchCase="assetType.TEXT"
+            [ngClass]="{'accent-border': selectedAssetId === asset.id }"
+            (click)="openDetails()">
+    <mat-card-subtitle><i class="fas fa-font"></i> Text </mat-card-subtitle>
+    <mat-card-content>
+        <p [ngClass]="{'fit-more-text': asset.asset_text.length >= 60 }">
+          {{asset.asset_text}}
+        </p>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngSwitchCase="assetType.HTML"
+            [ngClass]="{'accent-border': selectedAssetId === asset.id }"
+            (click)="openDetails()">
+    <mat-card-subtitle><i class="fab fa-html5"></i> {{asset.name}} </mat-card-subtitle>
+    <mat-card-content>
+      <img mat-card-image src= "./../../assets/html5_logo.png" alt="">
+    </mat-card-content>
+  </mat-card>
+</div>

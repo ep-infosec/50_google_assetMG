@@ -1,0 +1,9 @@
+:host {
+  background-color: whitesmoke;
+}
+
+.progress-bar {
+  height: 4px;
+  background-color: inherit;
+}
+

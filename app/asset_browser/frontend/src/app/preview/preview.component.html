@@ -1,0 +1,8 @@
+<div [ngSwitch]="data.type">
+<div *ngSwitchCase="assetType.IMG">
+    <img [src]="data.url">
+</div>
+<div *ngSwitchCase="assetType.VIDEO">
+    <youtube-player [videoId]="data.url"></youtube-player>
+</div>
+</div>

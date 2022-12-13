@@ -1,0 +1,36 @@
+.close-button{
+  float: right;
+}
+
+.close-icon {
+  height: 32px;
+}
+
+.type-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.type-radio-button {
+  margin: 5px;
+}
+
+.right-align {
+  float: right;
+  margin-left: auto !important;
+}
+
+.fixActionRow {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}

@@ -1,0 +1,69 @@
+:host {
+  height: 8rem;
+  width: auto;
+
+  display: flex;
+  align-items: center;
+
+  /* Add this padding to make uo for material card padding in the grid*/
+  padding-top: 16px;
+  padding-bottom: 16px;
+  margin-top: 2px;
+  margin-left: 2px;
+}
+
+mat-card {
+  width: 100%;
+  height: 100%;
+  display: flow-root;
+  width: 180px;
+  max-height: 100%;
+}
+
+mat-card-subtitle {
+  font-size: 14px;
+  border-bottom: groove;
+  border-width: thin;
+  display: inline-block;
+  width: 160px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+mat-card-content {
+  height: calc(100% - 2rem);
+}
+
+mat-card img {
+  object-fit:scale-down ; /*this makes the image in src fit to the size specified below*/
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}
+
+.asset-card {
+  display: contents;
+  cursor: pointer;
+}
+
+mat-card-content p {
+  text-align: center;
+  position: relative;
+  top: 20%;
+  font-size: larger;
+}
+
+.fit-more-text {
+  top: 0% !important;
+  font-size: medium !important;
+}
+
+mat-card-content img {
+  position: relative;
+}
+mat-card-content button {
+  position: absolute;
+  top: 75%;
+  right: 2%;
+}
+

@@ -1,0 +1,5 @@
+google-ads==14.1.0
+flask
+google-api-python-client
+pylint
+google-cloud-storage

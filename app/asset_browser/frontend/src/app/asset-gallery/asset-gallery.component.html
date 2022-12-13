@@ -1,0 +1,30 @@
+  <app-toolbar class="toolbar" [loadAccounts]="this.getConfigService().configValid"></app-toolbar>
+  <app-loader></app-loader>
+  <mat-sidenav-container *ngIf="this.getConfigService().configValid">
+    <mat-sidenav #sideNav
+      class="asset-details-container mat-elevation-z8"
+      position="end"
+      mode="over"
+      closed>
+      <app-asset-details #assetDetails
+        [account]="account"
+        [closeAssetDetails]="closeAssetDetailsFunc">
+      </app-asset-details>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <ng-template [ngIf]="showAssetGrid">
+        <app-asset-grid 
+          [account]="account"
+          [openAssetDetails]="openAssetDetailsFunc"
+          [closeAssetDetails]="closeAssetDetailsFunc"
+          [hidden]>
+        </app-asset-grid>
+      </ng-template>
+
+      <ng-template [ngIf]="!showAssetGrid">
+        <div class="pad-div">
+          <mat-card>Please login to view assets.</mat-card>
+        </div>
+      </ng-template>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

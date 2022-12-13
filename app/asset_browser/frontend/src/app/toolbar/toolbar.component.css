@@ -1,0 +1,24 @@
+.toolbar_class{
+  display: table;
+  color: grey;
+  font-size: 14px;
+}
+
+.toolbar_class img{
+  margin-right: 15px;
+  vertical-align: middle;
+}
+
+.toolbar_class span{
+  color: grey;
+	font-size: 18px;
+}
+
+.toolbar_select{
+  margin-left: 2%;
+}
+
+.right-align {
+  margin-left: auto;
+  color: grey;
+}

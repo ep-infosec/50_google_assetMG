@@ -1,0 +1,20 @@
+<mat-form-field id= "searchField" floatLabel=never appearance="legacy">
+  <input matInput
+    type="text"
+    autocomplete="off"
+    [(ngModel)]="searchStr"
+    (input)="searchThis()"
+    (focus)="checkPlaceHolder()"
+    (blur)="checkPlaceHolder()">
+    <mat-placeholder class="placeholder">{{searchPlaceholder}}</mat-placeholder>
+    <span matPrefix><i class="fas fa-search"></i>&nbsp;</span>
+</mat-form-field>
+<mat-form-field id="filterBtn">
+   <mat-select matNativeControl
+    [(ngModel)]="filterStr"
+    (selectionChange)="applyFilter()">
+    <mat-option *ngFor="let option of filterOptions" [value]="option.value">
+      {{option.label}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

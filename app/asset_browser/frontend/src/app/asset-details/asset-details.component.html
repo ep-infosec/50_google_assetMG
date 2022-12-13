@@ -1,0 +1,47 @@
+
+<h1 class="primary-color">Asset Details
+  <button mat-icon-button class="close-button" (click)="onClose()">
+    <mat-icon class="close-icon">close</mat-icon>
+  </button>
+</h1>
+<mat-divider></mat-divider>
+<div class="asset-details">
+  <div class="asset-info">
+    <app-asset [asset]="asset"> </app-asset>
+    <p>
+      <span class="primary-color info-header">{{ asset?.name }}</span>
+      <span [ngSwitch]="asset?.type">
+        <span class="img-details" *ngSwitchCase="assetType.IMG">
+          <span>
+            Dimensions: {{ asset?.image_width }} x {{ asset?.image_height }}
+          </span>
+          <span>Size: {{ asset?.file_size }}</span>
+        </span>
+        <span class="video-details" *ngSwitchCase="assetType.VIDEO">
+          <span>
+            <a href="{{ asset?.link }}" target="_blank">URL</a>
+          </span>
+        </span>
+      </span>
+      <span class="primary-color info-header">Stats</span>
+      <span class="asset-stats">
+        <span>Clicks: {{ asset?.stats?.clicks }}</span>
+        <span>Impressions: {{ asset?.stats?.impressions }}</span>
+        <span>Cost: {{ asset?.stats?.cost }}</span>
+        <span>All conversions: {{ asset?.stats?.all_conversions }}</span>
+      </span>
+    </p>
+  </div>
+  <app-account-struct
+    #accountAdGroups
+    [account]="account"
+    [activeAsset]="asset">
+  </app-account-struct>
+</div>
+<app-progress-btn
+  btnLabel='Update'
+  [btnUpdateMsg]="updateMessage"
+  [isError]="isErrorMessage"
+  [inProgress]="updateInProgress"
+  (btnClick)="updateAsset()">
+</app-progress-btn>
